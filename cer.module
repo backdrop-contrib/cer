@@ -147,34 +147,6 @@ function cer_field_delete_instance($instance) {
 }
 
 /**
- * Implements hook_node_insert().
- */
-function cer_node_insert(StdClass $node) {
-  // Write access grants *before* doing CER stuff in order to prevent a race condition.
-  // This tricky bug can easily rear its ugly head if you have an Entity Reference field,
-  // referencing nodes, and a node access module enabled.
-  //
-  // Entity Reference's bundled selection handlers will use either EntityFieldQuery or
-  // Views, both of which are affected by node access grants (and rightfully so).
-  // However, when creating a node, core invokes hook_node_save() *before* it writes the
-  // grants to the database, which can cause EntityFieldQuery (or Views, unless
-  // configured to disable SQL rewriting) to return no results if the user isn't the
-  // superuser. Since CER asks the field backend to validate the reference, this can
-  // cause the reference to not be validated, and the cross-reference to fail.
-  //
-  // Really, this is a core issue and not a CER issue. Core should be invoking
-  // hook_node_save() AFTER it writes access info. But we can work around it by writing
-  // the access info, doing our own processing, and then clearing the access info
-  // so node_save() can write it cleanly. And that's what this does.
-  //
-  // Hear that, core devs? Fix it fix it fix it!
-  //
-  node_access_acquire_grants($node);
-  cer_processing_entity('insert', $node, 'node');
-  db_delete('node_access')->condition('nid', $node->nid)->execute();
-}
-
-/**
  * Implements hook_entity_insert().
  */
 function cer_entity_insert($entity, $type) {
