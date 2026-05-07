@@ -15,7 +15,7 @@ class CerPresetFinder extends EntityFieldQuery {
 
   protected $entity;
 
-  public function __construct(EntityBackdropWrapper $entity = NULL) {
+  public function __construct(?EntityBackdropWrapper $entity = NULL) {
     $this->entity = $entity;
 
     $this

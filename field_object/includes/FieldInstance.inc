@@ -90,7 +90,7 @@ class FieldInstance {
   /**
    * Get or set the parent of this field instance.
    */
-  public function parent(FieldInstance $parent = NULL) {
+  public function parent(?FieldInstance $parent = NULL) {
     if ($parent) {
       $this->parent = $parent;
     }
@@ -100,7 +100,7 @@ class FieldInstance {
   /**
    * Get or set the child of this field instance.
    */
-  public function child(FieldInstance $child = NULL) {
+  public function child(?FieldInstance $child = NULL) {
     if ($child) {
       $this->child = $child;
     }
