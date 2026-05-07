@@ -171,12 +171,12 @@ class CerFieldHandler implements Countable, SeekableIterator {
    * variable is set, the error will also be set as a message.
    *
    * @param string $message
-   *  The untranslated message to log.
+   *   The untranslated message to log.
    *
-   * @param EntityBackdropWrapper $entity
-   *  The entity that has caused the error, if any.
+   * @param EntityBackdropWrapper|null $entity
+   *   The entity that has caused the error, if any.
    */
-  protected function logError($message, EntityBackdropWrapper $entity = NULL) {
+  protected function logError($message, ?EntityBackdropWrapper $entity = NULL) {
     $variables = array(
       '!field_name' => $this->field->name,
       '!field_type' => $this->field->fieldTypeLabel,

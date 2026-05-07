@@ -186,11 +186,11 @@ function cer_entity_delete($entity, $type) {
  *  The entity type. If $entity is wrapped, this can be NULL since the entity
  *  type is known by the wrapper.
  *
- * @param array $context
+ * @param array|null $context
  *  Either the Batch API context (since this is the callback function used
  *  during bulk update) or NULL if we're not in a batch job.
  */
-function cer_processing_entity($op, $entity, $entity_type = NULL, array &$context = NULL) {
+function cer_processing_entity($op, $entity, $entity_type = NULL, ?array &$context = NULL) {
   // Don't do anything if the MAINTENANCE_MODE flag is set. This isn't the same thing
   // as user-facing maintenance mode, but rather is set when running, say, update.php
   // or another relatively low-level operation. This was added to prevent CER from
